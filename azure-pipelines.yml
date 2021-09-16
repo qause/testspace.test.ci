@@ -1,8 +1,38 @@
-
-
 trigger:
-  batch: true
-  branches:
-    include:
-    - azure
-    - standalone
+- master
+- standalone
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '$(python.version)'
+  displayName: 'Use Python $(python.version)'
+
+- script: |
+    python -m pip install --upgrade pip
+  displayName: 'Install dependencies'
+
+- script: |
+    sudo pip install pytest pytest-azurepipelines
+    py.test generate-results.py --junitxml=results.xml -v --tb=no
+  displayName: 'pytest'
+
+
+
+
+- task: KubectlInstaller@0
+  inputs:
+    kubectlVersion: 'latest'
+
+- task: DockerInstaller@0
+  inputs:
+    dockerVersion: '17.09.0-ce'
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      sudo pip install pytest
+      py.test generate-results.py --junitxml=results.xml -v --tb=no
