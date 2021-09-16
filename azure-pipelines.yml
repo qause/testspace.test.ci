@@ -3,7 +3,7 @@ trigger:
 - standalone
 
 pool:
-  vmImage: salf-hosted
+  vmImage: self-hosted
 
 steps:
 - task: UsePythonVersion@0
