@@ -6,11 +6,12 @@ pool: Default
 
 steps:
 - script: |
-    pip install --upgrade pip
+    pipevn install -dev
   displayName: 'Install dependencies'
 
 - script: |
-    pip install pytest pytest-azurepipelines
+    pipenv install pytest pytest-azurepipelines
+    pipenv shell
     py.test generate-results.py --junitxml=results.xml -v --tb=no
   displayName: 'pytest'
 
