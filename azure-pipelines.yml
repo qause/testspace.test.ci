@@ -2,8 +2,7 @@ trigger:
 - master
 - standalone
 
-pool:
-  vmImage: self-hosted
+pool: Default
 
 steps:
 - task: UsePythonVersion@0
