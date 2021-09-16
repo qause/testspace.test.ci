@@ -10,7 +10,7 @@ steps:
   displayName: 'Install dependencies'
 
 - script: |
-    sudo pip install pytest pytest-azurepipelines
+    pip install pytest pytest-azurepipelines
     py.test generate-results.py --junitxml=results.xml -v --tb=no
   displayName: 'pytest'
 
